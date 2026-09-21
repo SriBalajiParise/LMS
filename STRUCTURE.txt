@@ -1,0 +1,227 @@
+╔══════════════════════════════════════════════════════════════════════╗
+║           LIBRARY MANAGEMENT SYSTEM - FILE STRUCTURE                 ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+Library-Management-System/
+│
+├── 📄 Main.java                          ← Entry point
+│
+├── 📂 controllers/                       ← Application control layer
+│   └── LibraryController.java            ← Main controller (handles all menu operations)
+│
+├── 📂 services/                          ← Business logic layer
+│   ├── BookService.java                  ← Book operations (add, update, delete, search)
+│   ├── UserService.java                  ← User operations (register, update, delete)
+│   └── BorrowService.java                ← Borrowing logic (borrow, return, history)
+│
+├── 📂 models/                            ← Data entities
+│   ├── Book.java                         ← Book entity (ID, title, author, ISBN, category)
+│   ├── User.java                         ← User entity (ID, name, email, phone)
+│   └── BorrowRecord.java                 ← Transaction record (dates, status)
+│
+├── 📂 datastructures/                    ← Custom data structures
+│   ├── BookBST.java                      ← Binary Search Tree implementation
+│   ├── BSTNode.java                      ← BST node structure
+│   ├── BorrowRecordList.java             ← Custom linked list
+│   └── Node.java                         ← Generic node class
+│
+├── 📂 ui/                                ← User interface layer
+│   └── MenuDisplay.java                  ← Console display utilities
+│
+├── 📂 utils/                             ← Helper utilities
+│   ├── SortingUtils.java                 ← Sorting algorithms (Merge Sort, Quick Sort)
+│   └── DataInitializer.java              ← Sample data loader
+│
+├── 📚 Documentation Files
+│   ├── README.md                         ← Project overview & setup
+│   ├── ARCHITECTURE.md                   ← Architecture & design patterns
+│   ├── QUICK_START.md                    ← Usage guide
+│   ├── PROJECT_SUMMARY.md                ← Complete project summary
+│   └── STRUCTURE.txt                     ← This file
+│
+├── 🔧 Build Scripts
+│   ├── compile.bat                       ← Windows compilation script
+│   └── compile.sh                        ← Linux/Mac compilation script
+│
+└── ⚙️ Configuration
+    └── .gitignore                        ← Git ignore rules
+
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                      LAYER ARCHITECTURE                              ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+    ┌──────────────────────────────────────────────┐
+    │           🖥️  PRESENTATION LAYER             │
+    │                                              │
+    │              MenuDisplay.java                │
+    │     (Console UI, Messages, Formatting)       │
+    └───────────────────┬──────────────────────────┘
+                        │
+    ┌───────────────────▼──────────────────────────┐
+    │           🎮  CONTROLLER LAYER               │
+    │                                              │
+    │          LibraryController.java              │
+    │    (User Input, Menu Flow, Validation)       │
+    └───────────────────┬──────────────────────────┘
+                        │
+    ┌───────────────────▼──────────────────────────┐
+    │           ⚙️  SERVICE LAYER                   │
+    │                                              │
+    │  ┌─────────────┐  ┌─────────────┐           │
+    │  │BookService  │  │UserService  │           │
+    │  └─────────────┘  └─────────────┘           │
+    │         └───────┬──────┘                     │
+    │                 │                            │
+    │         ┌───────▼──────────┐                 │
+    │         │  BorrowService   │                 │
+    │         └──────────────────┘                 │
+    │    (Business Logic & Operations)             │
+    └───────────────────┬──────────────────────────┘
+                        │
+    ┌───────────────────▼──────────────────────────┐
+    │           📦  MODEL LAYER                     │
+    │                                              │
+    │    Book    User    BorrowRecord              │
+    │   (Data Entities & Properties)               │
+    └───────────────────┬──────────────────────────┘
+                        │
+    ┌───────────────────▼──────────────────────────┐
+    │           🗄️  DATA STRUCTURE LAYER           │
+    │                                              │
+    │  HashMap  │  Binary Tree  │  Linked List     │
+    │  (O(1))   │   (O(log n))  │    (O(n))        │
+    │  Books    │   Sorted      │  Borrow          │
+    │  Users    │   Search      │  History         │
+    └──────────────────────────────────────────────┘
+
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                    DATA STRUCTURES USED                              ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+1. 🗂️  HASHMAP (Java Collections)
+   ├─ Location: BookService.java, UserService.java
+   ├─ Purpose: Fast lookup by ID
+   ├─ Operations: O(1) insert, search, delete
+   └─ Storage: Books by ID, Users by ID
+
+2. 🌳  BINARY SEARCH TREE (Custom Implementation)
+   ├─ Location: BookBST.java, BSTNode.java
+   ├─ Purpose: Sorted book storage & title search
+   ├─ Operations: O(log n) insert, search
+   └─ Features: In-order traversal for sorted list
+
+3. 🔗  LINKED LIST (Custom Implementation)
+   ├─ Location: BorrowRecordList.java, Node.java
+   ├─ Purpose: Sequential borrow history
+   ├─ Operations: O(1) append, O(n) search
+   └─ Features: Generic Node<T> implementation
+
+4. 📊  SORTING ALGORITHMS
+   ├─ Merge Sort: O(n log n) - Stable sorting
+   └─ Quick Sort: O(n log n) avg - Alternative
+
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                      KEY FEATURES                                    ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+📚 BOOK MANAGEMENT
+   ├─ Add New Book (auto-generated ID)
+   ├─ Update Book Details
+   ├─ Delete Book (with validation)
+   ├─ Search Books (multi-criteria)
+   └─ Display All Books (sorted)
+
+👥 USER MANAGEMENT
+   ├─ Register New User (auto-generated ID)
+   ├─ Update User Info
+   ├─ Delete User (with validation)
+   └─ Display All Users (sorted)
+
+📖 BORROWING SYSTEM
+   ├─ Borrow Book (availability check)
+   ├─ Return Book (overdue detection)
+   ├─ View User History
+   ├─ View All Records
+   └─ Track Overdue Books
+
+📊 STATISTICS & REPORTS
+   └─ Dashboard (books, users, transactions)
+
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                   COMPILATION & EXECUTION                            ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+WINDOWS:
+   Double-click: compile.bat
+   
+LINUX/MAC:
+   chmod +x compile.sh
+   ./compile.sh
+   
+MANUAL:
+   javac Main.java models/*.java services/*.java controllers/*.java \
+         datastructures/*.java ui/*.java utils/*.java
+   java Main
+
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                    PROJECT STATISTICS                                ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+✓ Total Java Files:           17 files
+✓ Packages:                   6 packages
+✓ Lines of Code:              ~2,500+ lines
+✓ Data Structures:            3 custom implementations
+✓ Algorithms:                 2 sorting algorithms
+✓ Design Patterns:            3 patterns (MVC, Service Layer, Facade)
+✓ Sample Books:               8 pre-loaded
+✓ Sample Users:               5 pre-loaded
+✓ User Operations:            15 menu options
+✓ Documentation Files:        5 markdown files
+
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                  ADVANTAGES OF THIS STRUCTURE                        ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+✓ MODULARITY        - Each file has a single responsibility
+✓ MAINTAINABILITY   - Easy to locate and update features
+✓ SCALABILITY       - Simple to add new features
+✓ REUSABILITY       - Services can be reused independently
+✓ TESTABILITY       - Each component can be tested separately
+✓ READABILITY       - Clear package structure and naming
+✓ PROFESSIONAL      - Industry-standard organization
+✓ TEAM-FRIENDLY     - Reduces merge conflicts
+
+
+╔══════════════════════════════════════════════════════════════════════╗
+║                    QUICK REFERENCE                                   ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+Need to modify...              Edit this file...
+─────────────────────────────  ────────────────────────────
+Menu options                → LibraryController.java
+Book operations             → BookService.java
+User operations             → UserService.java
+Borrowing logic             → BorrowService.java
+Search algorithm            → BookBST.java, BookService.java
+Sorting method              → SortingUtils.java
+Display messages            → MenuDisplay.java
+Book properties             → Book.java
+User properties             → User.java
+Sample data                 → DataInitializer.java
+
+
+═══════════════════════════════════════════════════════════════════════
+
+                    🎓 ACADEMIC PROJECT
+                    Library Management System
+                    April - May 2024
+                    
+         Demonstrates: Data Structures, Algorithms, OOP, Clean Code
+
+═══════════════════════════════════════════════════════════════════════
